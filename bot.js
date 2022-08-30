@@ -40,5 +40,3 @@ client.on('messageCreate', msg => {
             break;
     }
 });
-
-client.login('MTAxNDExMTkxMjM5MDMxNjA3NA.GJUokA.WJ9Hq9qfRtaSQpJVrh9Ohw7rEg9ZtZmht51NXM');
