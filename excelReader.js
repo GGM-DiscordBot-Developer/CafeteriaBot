@@ -20,8 +20,19 @@ const excelParser = function() {
                 for (let i = 0; i < weekData.length; i++) {
                     for (let j = index; j < index + 7; j++)
                         if (rows[j][weekData[i]] != undefined)
-                            value.push(rows[j][weekData[i]]);
-    
+                        {
+                            if(rows[j][weekData[i]].includes('/'))
+                            {
+                                arr = rows[j][weekData[i]].split('/');
+                                arr.forEach(e => {
+                                    value.push(e);
+                                });
+                                console.log(value);
+                            }
+                            else
+                                value.push(rows[j][weekData[i]]);
+                        }
+
                     data.push(value);
     
                     value = [];
@@ -36,6 +47,14 @@ const excelParser = function() {
                                 arr = rows[j][weekData[i]].split('\r\n');
                                 value.push(arr[0]);
                                 value.push(arr[1]);
+                            }
+                            else if(rows[j][weekData[i]].includes('/'))
+                            {
+                                arr = rows[j][weekData[i]].split('/');
+    
+                                arr.forEach(e => {
+                                    value.push(e);
+                                });
                             }
                             else
                                 value.push(rows[j][weekData[i]]);
@@ -59,8 +78,9 @@ const excelParser = function() {
     
     fs.writeFileSync('./excelData.json', JSON.stringify(result));
     fs.writeFileSync(arrFilePath, JSON.stringify(data));
-
     arr2json();
 }
+
+excelParser();
 
 exports.excelParser = excelParser;
