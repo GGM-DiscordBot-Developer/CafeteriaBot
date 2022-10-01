@@ -1,47 +1,66 @@
-const readExcelFile = require('read-excel-file/node');
+const excelToJson = require('convert-excel-to-json');
+const arr2json = require('./arr2json.js').arr2json;
 
 const fs = require('fs');
-const { stringify } = require('querystring');
-const saveFilePath = './excelData.json';
-const excelFilePath = './excel.xlsx';
+const arrFilePath = './arrdata.json';
 
-let dataArr = {}
-
-const excelDataParser = () => {
-    readExcelFile(excelFilePath).then(cells => {
-        cells.forEach(cell => {
-            cell.forEach(data => {
-                if(data != null && typeof(data) == 'number' && JSON.stringify(data).length > 4) {
-                    let i = ;
-                    while(i)
-                    dataArr[excelDateParser(data).getDate()] = [];
-                }
-            });
-        });
-        fs.writeFileSync(saveFilePath, JSON.stringify(dataArr));
+const excelParser = function() {
+    const result = excelToJson({
+        sourceFile: './excel.xlsx'
     });
-}
-excelDataParser();
-readExcelFile(excelFilePath).then(cells => {
-    fs.writeFileSync('./temp.json', JSON.stringify(cells));
-})
-const excelDateParser = serial => {
-    var utc_days  = Math.floor(serial - 25569);
-    var utc_value = utc_days * 86400;                                        
-    var date_info = new Date(utc_value * 1000);
- 
-    var fractional_day = serial - Math.floor(serial) + 0.0000001;
- 
-    var total_seconds = Math.floor(86400 * fractional_day);
- 
-    var seconds = total_seconds % 60;
- 
-    total_seconds -= seconds;
- 
-    var hours = Math.floor(total_seconds / (60 * 60));
-    var minutes = Math.floor(total_seconds / 60) % 60;
- 
-    return new Date(date_info.getFullYear(), date_info.getMonth(), date_info.getDate(), hours, minutes, seconds);
+    
+    const rows = result[Object.keys(result)[0]];
+    const weekData = ['B', 'D', 'F', 'H', 'J', 'L', 'N'];
+    let data = []
+    let value = [];
+    
+    rows.forEach((row, index) => {
+        Object.entries(row).forEach(cell => {
+            if (cell[1] == '조식' || cell[1] == '석식')
+                for (let i = 0; i < weekData.length; i++) {
+                    for (let j = index; j < index + 7; j++)
+                        if (rows[j][weekData[i]] != undefined)
+                            value.push(rows[j][weekData[i]]);
+    
+                    data.push(value);
+    
+                    value = [];
+                }
+    
+            if (cell[1] == '간식/\r\n주말중식' || cell[1] == '간식')
+                for (let i = 0; i < weekData.length; i++) {
+                    for (let j = index; j < index + 5; j++)
+                        if (rows[j][weekData[i]] != undefined && rows[j][weekData[i]] != 'a') {
+                            if(rows[j][weekData[i]].includes('\r\n'))
+                            {
+                                arr = rows[j][weekData[i]].split('\r\n');
+                                value.push(arr[0]);
+                                value.push(arr[1]);
+                            }
+                            else
+                                value.push(rows[j][weekData[i]]);
+    
+                            if (weekData[i] == 'L')
+                                if (rows[j]['M'] != undefined)
+                                    value.push(rows[j]['M']);
+    
+                            if (weekData[i] == 'N')
+                                if (rows[j]['O'] != undefined)
+                                    value.push(rows[j]['O']);
+                        }
+    
+    
+                    data.push(value);
+    
+                    value = [];
+                }
+        });
+    });
+    
+    fs.writeFileSync('./excelData.json', JSON.stringify(result));
+    fs.writeFileSync(arrFilePath, JSON.stringify(data));
+
+    arr2json();
 }
 
-exports.excelDataParser = excelDataParser;
+exports.excelParser = excelParser;
