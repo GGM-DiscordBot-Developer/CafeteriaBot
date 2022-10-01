@@ -1,9 +1,18 @@
 const fs = require('fs');
 
-const arr = require('./arrdata.json');
+let stringValue;//require('./arrdata.json');
+let arr;
 const jsonDataPath = './result.json';
 
 const arr2json = function () {
+    stringValue = fs.readFileSync('./arrdata.json').toString();
+
+    stringValue = stringValue.replaceAll('.', '');
+    for(let i = 0; i < 10; i++)
+        stringValue = stringValue.replaceAll(i, '');
+    
+    arr = JSON.parse(stringValue);
+
     let result = {};
 
     let count = 0;
@@ -30,5 +39,6 @@ const arr2json = function () {
 
     fs.writeFileSync(jsonDataPath, JSON.stringify(result));
 }
+arr2json();
 
 exports.arr2json = arr2json;

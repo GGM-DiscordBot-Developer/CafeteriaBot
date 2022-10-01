@@ -24,15 +24,13 @@ const excelParser = function() {
                             if(rows[j][weekData[i]].includes('/'))
                             {
                                 arr = rows[j][weekData[i]].split('/');
-                                arr.forEach(e => {
-                                    value.push(e);
-                                });
-                                console.log(value);
+                                arr.forEach(e => value.push(e) );
                             }
                             else
                                 value.push(rows[j][weekData[i]]);
                         }
-
+                    
+                    value.forEach((d, index) => value[index] = d.replaceAll(',', ''));
                     data.push(value);
     
                     value = [];
@@ -58,7 +56,7 @@ const excelParser = function() {
                             }
                             else
                                 value.push(rows[j][weekData[i]]);
-    
+
                             if (weekData[i] == 'L')
                                 if (rows[j]['M'] != undefined)
                                     value.push(rows[j]['M']);
@@ -68,9 +66,10 @@ const excelParser = function() {
                                     value.push(rows[j]['O']);
                         }
     
-    
+
+                    value.forEach((d, index) => value[index] = d.replaceAll(',', ''));
+                    
                     data.push(value);
-    
                     value = [];
                 }
         });
@@ -78,6 +77,7 @@ const excelParser = function() {
     
     fs.writeFileSync('./excelData.json', JSON.stringify(result));
     fs.writeFileSync(arrFilePath, JSON.stringify(data));
+
     arr2json();
 }
 
