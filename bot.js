@@ -1,4 +1,4 @@
-//const ExcelReader = require('./excelReader.js');
+const ExcelReader = require('./excelReader.js');
 const { Client, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -21,21 +21,29 @@ const dataFile = require('./excelData.json');
 client.on('ready', () => {
     client.user.setActivity({ name: '!급식', type: ActivityType.Playing });
     console.log('bot on');
-    //ExcelReader.Init();
 });
 
 client.on('messageCreate', msg => {
-    if (!msg.content.startsWith('!')) return;
+    if (!msg.content.startsWith('!급식')) return;
 
-    const args = msg.content.replace(/^./, "").split(' ');
+    const args = msg.content.replace('!').split(' ');
     console.log(args);
 
-    switch (args[0]) {
-        case '야':
-            const a = msg.guilds.fetch(process.env.GUILD_ID);
-            a.then(guild => {
-                
-            })
+    switch(args[1])
+    {
+        case "도움":
+            msg.channel.send({ embeds : [helpEmbed] });
+            break;
+        case "":
+        case "오늘":
+            break;
+        case "내일":
+            break;
+        case "조식":
+            break;
+        case "석식":
             break;
     }
 });
+
+client.login(require('token.txt'));
