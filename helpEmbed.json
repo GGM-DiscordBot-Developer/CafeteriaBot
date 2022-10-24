@@ -1,0 +1,19 @@
+{
+    "title" : ":fork_and_knife:   __**명령어**__",
+    "color" : "#ff9696",
+    "fields" : [
+        { "name" : "**!급식 도움**", "value" : "- :speech_balloon: 지금 이 메세지를 출력합니다." },
+        { "name": "**!급식 (오늘)**", "value": "- :spoon: 오늘의 급식을 알려줍니다." },
+        { "name": "**!급식 내일**", "value": "- :fork_and_knife: 내일의 급식을 알려줍니다." },
+        { "name": "**!급식 n월 n일**", "value": "- :date: 해당되는 날짜의 급식을 알려줍니다." },
+        { "name": "**!급식 조식(아침)**", "value": "- :chopsticks: 내일의 조식을 알려줍니다." },
+        { "name": "**!급식 석식(저녁)**", "value": "- :fork_knife_plate: 오늘의 석식을 알려줍니다." },
+        { "name": "**!급식 간식**", "value": "- :burrito: 오늘의 간식을 알려줍니다." },
+        { "name": "**!급식 봇정보**", "value": "- :robot: 봇의 정보를 알려줍니다." }
+    ],
+    "image" : "https://media.discordapp.net/attachments/780946215918632990/841259194450575360/5ec527db3bc4f1de.png",
+    "footer" : { 
+        "text" : "만든 애 : 박세훈, 곽석현", 
+        "iconURL" : "https://images-ext-2.discordapp.net/external/mnCd9CbRVv5kPRVxxXmVl78ZSDte0U2Myp_900yoQHs/%3Fsize%3D128/https/cdn.discordapp.com/avatars/357483772037300225/a_344fd87d9c8569fa9ec168f1a6a6b9e9.gif"
+    }
+}

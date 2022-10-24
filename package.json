@@ -4,5 +4,23 @@
     "discord.js": "^14.3.0",
     "fs": "^0.0.1-security",
     "read-excel-file": "^5.4.7"
-  }
+  },
+  "name": "cafeteriabot",
+  "description": "곽석현과 함께하는 급식봇 만들기",
+  "version": "1.0.0",
+  "main": "arr2json.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GGM-DiscordBot-Developer/CafeteriaBot.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GGM-DiscordBot-Developer/CafeteriaBot/issues"
+  },
+  "homepage": "https://github.com/GGM-DiscordBot-Developer/CafeteriaBot#readme"
 }
