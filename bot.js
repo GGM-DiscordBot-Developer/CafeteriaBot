@@ -24,12 +24,12 @@ client.on('messageCreate', msg => {
     if(args[1] === "" || args[1] == undefined)
         args[1] = "오늘";
 
-    if(typeof(handlers[args[1]].handle) !== "function") {
+    if(handlers[args[1]] === undefined || (typeof(handlers[args[1]].handle) !== "function")) {
         msg.reply('"!급식 도움"을 입력하여 명령어를 확인하세요.');
         return;
     }
     else {
-        handlers[args[1]].handle(args, msg.channel, msg.createdTimestamp);
+        handlers[args[1]].handle(args, msg.channel);
     }
 });
 
