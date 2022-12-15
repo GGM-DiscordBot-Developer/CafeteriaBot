@@ -7,8 +7,6 @@ const client = new Client({
     ] 
 });
 
-const helpEmbed = new EmbedBuilder(require('./helpEmbed.json'));
-
 const handlers = require('./handlers.js');
 
 client.on('ready', () => {
@@ -17,8 +15,9 @@ client.on('ready', () => {
 
 client.on('messageCreate', msg => {
     if(!msg.content.startsWith("!")) return;
-    const args = msg.content.replace("!", "").split(" ");
+    const args = msg.content.replace("!", "").split(" ").filter(a => a != "");
     if(args[0] !== "급식") return;
+    
     console.log(`[bot.js] Arguments : ${args}`);
 
     if(args[1] === "" || args[1] == undefined)
@@ -29,7 +28,8 @@ client.on('messageCreate', msg => {
         return;
     }
     else {
-        handlers[args[1]].handle(args, msg.channel);
+        handlers[args[1]].handle(args, msg.channel, msg);
+        
     }
 });
 

@@ -15,13 +15,14 @@ function getLunchData(date, callback) {
     let result;
     req.get(url + key + type + localCode + schoolCode + getDateFormat(date), 
     (err, res, body) => {
+        console.log(res);
         if(err) {
             console.log(err);
             return;
         };
         try{ callback(JSON.parse(body)); }
         catch(error) { 
-            console.log(err); 
+            console.log(body);
             callback(undefined);
         }
     });
@@ -42,7 +43,7 @@ function getDateFormat(date) {
 
 module.exports = function getLunch(date, callback) {
     getLunchData(date, (result) => {
-        if(!result) return;
+        if(!result) {callback(undefined); return;}
         /** @type {string[]} */
         let arr = result.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>');
         for(let i = 0; i < arr.length; i++) {
