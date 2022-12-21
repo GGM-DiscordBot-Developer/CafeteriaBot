@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, Partials } = require('discord.js');
 const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds, 
@@ -27,8 +27,9 @@ client.on('messageCreate', msg => {
     if(args[0] !== "급식") return;
     
     console.log(`[bot.js] Arguments : ${args}`);
+    let date = new Date();
     client.channels.cache.get('1055146627310030868')
-    .send(`> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} | ${date.getHours()}:${date.getMinutes()} ${cnt++} \`\`\`[${args}]\`\`\``);
+    .send(`> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} | ${date.getHours()}:${date.getMinutes()} ${++cnt} \`\`\`[${args}]\`\`\``);
     
     fs.writeFileSync("./count.json", JSON.stringify({cnt}));
 
@@ -46,3 +47,4 @@ client.on('messageCreate', msg => {
 });
 
 client.login(process.env.BOT_TOKEN);
+// client.login(require('./token.json'));
