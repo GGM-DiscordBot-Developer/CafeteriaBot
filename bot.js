@@ -17,8 +17,11 @@ const handlers = require('./handlers.js');
 const fs = require('fs');
 let cnt = require('./count.json').cnt;
 
+let logChannel;
+
 client.on('ready', () => {
     console.log(`[bot.js] Bot ${client.user.tag} is running`);
+    logChannel = client.channels.cache.get('1055146627310030868');
 });
 
 client.on('messageCreate', msg => {
@@ -28,8 +31,7 @@ client.on('messageCreate', msg => {
     
     console.log(`[bot.js] Arguments : ${args}`);
     let date = new Date();
-    client.channels.cache.get('1055146627310030868')
-    .send(`> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} | ${date.getHours()}:${date.getMinutes()} ${++cnt} \`\`\`[${args}]\`\`\``);
+    logChannel.send(`> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} | ${date.getHours()}:${date.getMinutes()} ${++cnt} \`\`\`[${args}]\`\`\``);
     
     fs.writeFileSync("./count.json", JSON.stringify({cnt}));
 
