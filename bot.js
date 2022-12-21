@@ -3,11 +3,19 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, 
         GatewayIntentBits.GuildMessages, 
-        GatewayIntentBits.MessageContent
-    ] 
-});
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.DirectMessages, 
+        GatewayIntentBits.DirectMessageTyping,
+        GatewayIntentBits.DirectMessageReactions
+    ] ,
+    partials : [
+        Partials.Channel,
+        Partials.Message
+    ]});
 
 const handlers = require('./handlers.js');
+const fs = require('fs');
+let cnt = require('./count.json').cnt;
 
 client.on('ready', () => {
     console.log(`[bot.js] Bot ${client.user.tag} is running`);
@@ -19,6 +27,10 @@ client.on('messageCreate', msg => {
     if(args[0] !== "급식") return;
     
     console.log(`[bot.js] Arguments : ${args}`);
+    client.channels.cache.get('1055146627310030868')
+    .send(`> ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} | ${date.getHours()}:${date.getMinutes()} ${cnt++} \`\`\`[${args}]\`\`\``);
+    
+    fs.writeFileSync("./count.json", JSON.stringify({cnt}));
 
     if(args[1] === "" || args[1] == undefined)
         args[1] = "오늘";
