@@ -79,26 +79,26 @@ handlers["조식"] = handlers["석식"] = handlers["간식"] = {
         console.log(date);
         
         let dataInfo = args[1];
-        if(dataInfo == "간식" && date.getDay() == 5) {
-            sendNoData(channel, date);
-            return;
-        }
+        // if(dataInfo == "간식" && date.getDay() == 5) {
+        //     sendNoData(channel, date, dataInfo);
+        //     return;
+        // }
 
         console.log(date.getMonth());
-        if(장흐응한식[day - 1] == undefined || day <= 0) {
-            msg.reply(`${date.getMonth() == 0 ? 12 : date.getMonth() + 1}월 ${day}일이 과연 세상에 존재할까요?`);
+        if(장흐응한식[day] == undefined || day <= 0) {
+            msg.reply('"!급식 도움"을 입력하여 명령어를 확인하세요.');
             return;
         }
-        let list = 장흐응한식[day - 1][enums[args[1]]];
+        let list = 장흐응한식[day][enums[args[1]]];
 
         if(list.length <= 0)
-            sendNoData(channel, date);
+            sendNoData(channel, date, dataInfo);
         else
         channel.send({embeds: [
             new EmbedBuilder()
             .setTitle(":fork_and_knife:   __**겜마고 급식 정보**__")
             .addFields([{
-                name: `:spoon: ${date.getFullYear()}년 ${date.getMonth() + 1}월 ${day}일 ${days[date.getDay()]} 급식`,
+                name: `:spoon: ${date.getFullYear()}년 ${date.getMonth() + 1}월 ${day}일 ${days[date.getDay()]} ${dataInfo}`,
                 value: list.join("\n") + '\n\n"!급식 도움"을 입력하여 더 많은 명령어를 확인하세요.'
             }])
             .setImage(helpEmbedData.image)
@@ -148,14 +148,14 @@ handlers["내놔"] = {
     }
 }
 
-function sendNoData(channel, date) {
+function sendNoData(channel, date, dataInfo = "급식") {
     console.log(date.getDay());
     channel.send({embeds: [
         new EmbedBuilder()
         .setTitle(":fork_and_knife:   __**겜마고 급식 정보**__")
         .addFields([{
-            name: `:spoon: ${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${days[date.getDay()]} 급식`,
-            value: "급식 정보가 없습니다." + '\n\n"!급식 도움"을 입력하여 더 많은 명령어를 확인하세요.'
+            name: `:spoon: ${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${days[date.getDay()]} ${dataInfo}`,
+            value: `${dataInfo} 정보가 없습니다.` + '\n\n"!급식 도움"을 입력하여 더 많은 명령어를 확인하세요.'
         }])
         .setImage(helpEmbedData.image)
         .setFooter(helpEmbedData.footer)
