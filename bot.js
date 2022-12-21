@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder, Partials } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, Partials, ActivityType } = require('discord.js');
 const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds, 
@@ -21,6 +21,7 @@ let logChannel;
 
 client.on('ready', () => {
     console.log(`[bot.js] Bot ${client.user.tag} is running`);
+    client.user.setActivity({ name: '!급식', type: ActivityType.Playing });
     logChannel = client.channels.cache.get('1055146627310030868');
 });
 
