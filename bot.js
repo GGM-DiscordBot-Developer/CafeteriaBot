@@ -33,4 +33,4 @@ client.on('messageCreate', msg => {
     }
 });
 
-client.login(require('./token.json'));
+client.login(process.env.BOT_TOKEN);
