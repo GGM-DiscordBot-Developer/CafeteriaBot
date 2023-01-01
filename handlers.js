@@ -8,6 +8,8 @@ const enums = { "조식" : 0, "간식" : 1, "석식" : 2 };
 
 const days = require('./day.json');
 
+const currentFileMonth = 12;
+
 
 /**@type { { [keyof:string] : { handle : (args: string[], channel: TextBasedChannel, msg: Message<boolean>) => void } } } */
 const handlers = {};
@@ -68,6 +70,11 @@ handlers["조식"] = handlers["석식"] = handlers["간식"] = {
         let date = new Date();
         if(args.length >= 3 && args[2][args[2].length - 1] != "일") {
             msg.reply('"!급식 도움"을 입력하여 명령어를 확인하세요.');
+            return;
+        }
+        if(currentFileMonth != date.getMonth() + 1)
+        {
+            sendNoData(channel, date, args[1]);
             return;
         }
         let day = args.length >= 3 ? args[2].slice(0, args[2].length - 1) : date.getDate();
