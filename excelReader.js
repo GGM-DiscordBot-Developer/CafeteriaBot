@@ -11,8 +11,9 @@ const excelParser = function() {
     let date = new Date();
 
     const result = excelToJson({
-        sourceFile: `./${date.getMonth() + 1}.xlsx`
+        sourceFile: `./1.xlsx`
     });
+    console.log(result);
         
     const rows = result[Object.keys(result)[0]];
     const weekData = ['B', 'D', 'F', 'H', 'J', 'L', 'N'];
