@@ -68,6 +68,7 @@ handlers["조식"] = handlers["석식"] = handlers["간식"] = {
     handle(args, channel, msg) {
 
         let date = new Date();
+        console.log(date);
         if(args.length >= 3 && args[2][args[2].length - 1] != "일") {
             msg.reply('"!급식 도움"을 입력하여 명령어를 확인하세요.');
             return;

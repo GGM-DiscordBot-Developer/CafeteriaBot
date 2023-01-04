@@ -16,8 +16,8 @@ const arr2json = function () {
     let result = {};
 
     let count = 0;
-    let date = -3;
-    let baseDate = -3;
+    let date = 1;
+    let baseDate = date;
 
     arr.forEach(data => {
         if (result[date + 1] == undefined)
