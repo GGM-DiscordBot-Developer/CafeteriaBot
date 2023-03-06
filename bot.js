@@ -15,12 +15,16 @@ const client = new Client({
 
 const handlers = require('./handlers.js');
 const fs = require('fs');
+const { excelParser } = require('./excelReader.js');
 let cnt = require('./count.json').cnt;
 
 let logChannel;
 
 client.on('ready', () => {
     console.log(`[bot.js] Bot ${client.user.tag} is running`);
+
+    excelParser();
+
     client.user.setActivity({ name: '!급식', type: ActivityType.Playing });
     logChannel = client.channels.cache.get('1055146627310030868');
 });
