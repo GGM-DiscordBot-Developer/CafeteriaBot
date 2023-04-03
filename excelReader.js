@@ -4,14 +4,14 @@ const arr2json = require('./arr2json.js').arr2json;
 const fs = require('fs');
 const arrFilePath = './arrdata.json';
 
-const snackLen = 4;
+const snackLen = 3;
 const morningNDinnerLen = 7;
 
 const excelParser = function() {
     let date = new Date();
 
     const result = excelToJson({
-        sourceFile: `./3.xlsx`
+        sourceFile: `./4.xlsx`
     });
     console.log(result);
         
