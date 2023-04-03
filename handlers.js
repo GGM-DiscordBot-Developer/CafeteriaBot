@@ -8,7 +8,7 @@ const enums = { "조식" : 0, "간식" : 1, "석식" : 2 };
 
 const days = require('./day.json');
 
-const currentFileMonth = 3;
+const currentFileMonth = 4;
 
 
 /**@type { { [keyof:string] : { handle : (args: string[], channel: TextBasedChannel, msg: Message<boolean>) => void } } } */
