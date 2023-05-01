@@ -4,7 +4,8 @@ let stringValue;//require('./arrdata.json');
 let arr;
 const jsonDataPath = './result.json';
 
-const arr2json = function () {
+const arr2json = function (startDate) {
+    arr = [];
     stringValue = fs.readFileSync('./arrdata.json').toString();
 
     stringValue = stringValue.replaceAll('.', '');
@@ -16,7 +17,7 @@ const arr2json = function () {
     let result = {};
 
     let count = 0;
-    let date = 2;
+    let date = startDate;
     let baseDate = date;
 
     arr.forEach(data => {
@@ -39,6 +40,6 @@ const arr2json = function () {
 
     fs.writeFileSync(jsonDataPath, JSON.stringify(result));
 }
-arr2json();
+//arr2json();
 
 exports.arr2json = arr2json;

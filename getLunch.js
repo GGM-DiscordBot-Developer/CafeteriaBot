@@ -1,4 +1,4 @@
-const req = require('request');
+const req = require('request'); // ?
 const fs = require('fs');
 const schoolData = require('./schoolData.json');
 

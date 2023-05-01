@@ -15,7 +15,7 @@ const client = new Client({
 
 const handlers = require('./handlers.js');
 const fs = require('fs');
-const { excelParser } = require('./excelReader.js');
+const { excelParser, readExcelFile } = require('./excelReader.js');
 let cnt = require('./count.json').cnt;
 
 let logChannel;
@@ -23,7 +23,7 @@ let logChannel;
 client.on('ready', () => {
     console.log(`[bot.js] Bot ${client.user.tag} is running`);
 
-    excelParser();
+    //excelParser(0, readExcelFile(5));
 
     client.user.setActivity({ name: '!급식', type: ActivityType.Playing });
     logChannel = client.channels.cache.get('1055146627310030868');
@@ -53,5 +53,6 @@ client.on('messageCreate', msg => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);
+// client.login(process.env.BOT_TOKEN);
 // client.login(require('./token.json'));
+client.login('MTAxNDExMTkxMjM5MDMxNjA3NA.GEaJ9_.ZJ2UxmdFoz3VbduPTS7mzzafozwLKTSqaoE2bA');

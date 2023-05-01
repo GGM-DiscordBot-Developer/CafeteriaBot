@@ -7,15 +7,12 @@ const arrFilePath = './arrdata.json';
 const snackLen = 3;
 const morningNDinnerLen = 7;
 
-const excelParser = function() {
-    let date = new Date();
+const readExcelFile = function(month) {
+    return excelToJson({ sourceFile: `./${month}.xlsx` });
+}
 
-    const result = excelToJson({
-        sourceFile: `./4.xlsx`
-    });
-    console.log(result);
-        
-    const rows = result[Object.keys(result)[0]];
+const excelParser = function(startDate, excel) {
+    const rows = excel[Object.keys(excel)[0]];
     const weekData = ['B', 'D', 'F', 'H', 'J', 'L', 'N'];
     let data = []
     let value = [];
@@ -81,12 +78,11 @@ const excelParser = function() {
         });
     });
     
-    fs.writeFileSync('./excelData.json', JSON.stringify(result));
+    fs.writeFileSync('./excelData.json', JSON.stringify(excel));
     fs.writeFileSync(arrFilePath, JSON.stringify(data));
 
-    arr2json();
+    arr2json(startDate);
 }
 
-excelParser();
-
 exports.excelParser = excelParser;
+exports.readExcelFile = readExcelFile;
