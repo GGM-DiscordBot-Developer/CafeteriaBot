@@ -53,6 +53,6 @@ client.on('messageCreate', msg => {
     }
 });
 
-// client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);
 // client.login(require('./token.json'));
-client.login('MTAxNDExMTkxMjM5MDMxNjA3NA.GEaJ9_.ZJ2UxmdFoz3VbduPTS7mzzafozwLKTSqaoE2bA');
+// client.login('MTAxNDExMTkxMjM5MDMxNjA3NA.GEaJ9_.ZJ2UxmdFoz3VbduPTS7mzzafozwLKTSqaoE2bA');
