@@ -61,7 +61,10 @@ handlers["업데이트"] = {
 
             if(args[3] != undefined)
                 currentFileMonth = parseInt(args[3]);
+
+            channel.send({ files: ['./result.json'] });
             장흐응한식 = require('./result.json');
+
             msg.reply(`아마도 성공...? \n**수정내용** \n**[시작날짜 : ${parseInt(args[2]) + 1}일 파일 정보 : ${currentFileMonth}월]**`);
         } catch (err) {
             msg.reply(err.message);
