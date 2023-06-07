@@ -9,7 +9,7 @@ const enums = { "조식": 0, "간식": 1, "석식": 2 };
 
 const days = require('./day.json');
 
-let currentFileMonth = 5;
+let currentFileMonth = 6;
 let 장흐응한식 = require('./result.json');
 
 
