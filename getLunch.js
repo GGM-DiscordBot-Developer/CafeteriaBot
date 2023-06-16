@@ -1,6 +1,10 @@
 const req = require('request'); // ?
-const fs = require('fs');
 const schoolData = require('./schoolData.json');
+const axios = require("axios").default;
+const cheerio = require("cheerio");
+const iconv = require("iconv-lite");
+const fs = require("fs/promises");
+const path = require("path");
 
 const url = "https://open.neis.go.kr/hub/mealServiceDietInfo?";
 const key = `KEY=${schoolData.key}&`;
