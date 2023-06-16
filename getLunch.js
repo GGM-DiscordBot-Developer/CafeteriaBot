@@ -5,6 +5,7 @@ const cheerio = require("cheerio");
 const iconv = require("iconv-lite");
 const fs = require("fs/promises");
 const path = require("path");
+const https = require("https");
 
 const url = "https://open.neis.go.kr/hub/mealServiceDietInfo?";
 const key = `KEY=${schoolData.key}&`;
@@ -48,7 +49,7 @@ function getDateFormat(date) {
 module.exports = async function getLunch(now) {
     let uri = `https://ggm.hs.kr/lunch.view?date=${yyyymmdd(now)}`;
     try {
-        const html = await axios.get(uri, {responseType: "arraybuffer"});
+        const html = await axios.get(uri, {responseType: "arraybuffer", timeout: 3000, httpsAgent: new https.Agent({keepAlive: true})});
         const $ = cheerio.load(iconv.decode(html.data, "EUC-KR"));
         let result = $("#morning > div.objContent1 > div > span").text().split("\n");
         result.map((str, idx) => {
