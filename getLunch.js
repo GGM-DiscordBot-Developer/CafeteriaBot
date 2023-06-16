@@ -49,7 +49,7 @@ function getDateFormat(date) {
 module.exports = async function getLunch(now) {
     let uri = `https://ggm.hs.kr/lunch.view?date=${yyyymmdd(now)}`;
     try {
-        const html = await axios.get(uri, {responseType: "arraybuffer", timeout: 3000, httpsAgent: new https.Agent({keepAlive: true})});
+        const html = await axios.get(uri, {responseType: "arraybuffer", timeout: 3000, httpsAgent: new https.Agent({keepAlive: true, timeout: 3000})});
         const $ = cheerio.load(iconv.decode(html.data, "EUC-KR"));
         let result = $("#morning > div.objContent1 > div > span").text().split("\n");
         result.map((str, idx) => {
@@ -66,3 +66,5 @@ module.exports = async function getLunch(now) {
 function yyyymmdd(date) {
     return date.toISOString().slice(0,10).replace(/-/g,"");
 }
+
+module.exports(new Date());
