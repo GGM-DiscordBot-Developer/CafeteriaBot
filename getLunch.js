@@ -53,6 +53,7 @@ module.exports = async function getLunch(now) {
         return result;
     }
     catch(err) {
+        console.error(err);
         return undefined;
     }
 }
