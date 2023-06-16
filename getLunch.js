@@ -55,6 +55,7 @@ module.exports = async function getLunch(now) {
         result.map((str, idx) => {
             result[idx] = str.replace(str.match(/[0-9].*/g), "");
         });
+        console.log(result);
         return result;
     }
     catch(err) {
