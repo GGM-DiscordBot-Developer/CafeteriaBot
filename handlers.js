@@ -13,7 +13,7 @@ let currentFileMonth = 6;
 let 장흐응한식 = require('./result.json');
 
 
-/**@type { { [keyof:string] : { handle : (args: string[], channel: TextBasedChannel, msg: Message<boolean>) => void } } } */
+/**@type { { [keyof:string] : { handle : (args: string[], channel: TextBasedChannel, msg: Message<boolean>) => Promise<void> } } } */
 const handlers = {};
 
 const helpEmbedData = require('./helpEmbed.json');
@@ -29,7 +29,7 @@ handlers["도움"] = {
      * @param {string[]} args
      * @param {TextBasedChannel} channel
      */
-    handle(args, channel, msg) {
+    async handle(args, channel, msg) {
         channel.send({ embeds: [helpEmbed] });
     }
 }
@@ -39,7 +39,7 @@ handlers["업데이트"] = {
      * @param {string[]} args 
      * @param {TextBasedChannel} channel 
      */
-    handle(args, channel, msg) {
+    async handle(args, channel, msg) {
         if(msg.author.id != '362896967850000384')
             return;
 
@@ -110,7 +110,7 @@ handlers["점심"] = handlers["오늘"] = {
 
 
 handlers["조식"] = handlers["석식"] = handlers["간식"] = {
-    handle(args, channel, msg) {
+    async handle(args, channel, msg) {
 
         let date = new Date();
         console.log(date);
@@ -197,7 +197,7 @@ handlers["내일"] = {
 }
 
 handlers["내놔"] = {
-    handle() {
+    async handle() {
 
     }
 }

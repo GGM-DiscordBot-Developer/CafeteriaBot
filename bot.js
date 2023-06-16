@@ -29,7 +29,7 @@ client.on('ready', () => {
     logChannel = client.channels.cache.get('1055146627310030868');
 });
 
-client.on('messageCreate', msg => {
+client.on('messageCreate', async msg => {
     if(!msg.content.startsWith("!")) return;
     const args = msg.content.replace("!", "").split(" ").filter(a => a != "");
     if(args[0] !== "급식") return;
@@ -48,8 +48,7 @@ client.on('messageCreate', msg => {
         return;
     }
     else {
-        handlers[args[1]].handle(args, msg.channel, msg);
-        
+        await handlers[args[1]].handle(args, msg.channel, msg);
     }
 });
 
