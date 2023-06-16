@@ -86,7 +86,8 @@ handlers["점심"] = handlers["오늘"] = {
         }
 
         let arr = await getLunch(date);
-        if (!arr) 
+        console.log(arr);
+        if (arr == undefined) 
         {
             sendNoData(channel, date);
             return;
