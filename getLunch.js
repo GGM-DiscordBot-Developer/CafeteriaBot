@@ -1,11 +1,6 @@
 const req = require('request'); // ?
+const fs = require('fs');
 const schoolData = require('./schoolData.json');
-const axios = require("axios").default;
-const cheerio = require("cheerio");
-const iconv = require("iconv-lite");
-const fs = require("fs/promises");
-const path = require("path");
-const https = require("https");
 
 const url = "https://open.neis.go.kr/hub/mealServiceDietInfo?";
 const key = `KEY=${schoolData.key}&`;
@@ -46,26 +41,21 @@ function getDateFormat(date) {
     return `MLSV_YMD=${date.getFullYear()}${month}${day}`;
 }
 
-module.exports = async function getLunch(now) {
-    let uri = `https://ggm.hs.kr/lunch.view?date=${yyyymmdd(now)}`;
-    try {
-        const html = await axios.get(uri, {responseType: "arraybuffer", httpsAgent: new https.Agent({keepAlive: true, timeout: 3000})});
-        const $ = cheerio.load(iconv.decode(html.data, "EUC-KR"));
-        let result = $("#morning > div.objContent1 > div > span").text().split("\n");
-        result.map((str, idx) => {
-            result[idx] = str.replace(str.match(/[0-9].*/g), "");
-        });
-        console.log(result);
-        return result;
-    }
-    catch(err) {
-        console.error(err);
-        return undefined;
-    }
+module.exports = function getLunch(date, callback) {
+    getLunchData(date, (result) => {
+        if(!result) {callback(undefined); return;}
+        /** @type {string[]} */
+        let arr = result.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>');
+        for(let i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].replaceAll("★", "");
+            arr[i] = arr[i].replaceAll("(", "");
+            arr[i] = arr[i].replaceAll(")", "");
+            arr[i] = arr[i].replaceAll(".", "");
+            arr[i] = arr[i].replaceAll(" ", "");
+            for(let j = 0; j < 10; j++) {
+                arr[i] = arr[i].replaceAll(j.toString(), "");
+            }
+        }
+        callback(arr);
+    });
 }
-
-function yyyymmdd(date) {
-    return date.toISOString().slice(0,10).replace(/-/g,"");
-}
-
-module.exports(new Date());
