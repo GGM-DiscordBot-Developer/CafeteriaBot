@@ -15,14 +15,12 @@ function getLunchData(date, callback) {
     let result;
     req.get(url + key + type + localCode + schoolCode + getDateFormat(date), 
     (err, res, body) => {
-        console.log(res);
         if(err) {
             console.log(err);
             return;
         };
         try{ callback(JSON.parse(body)); }
-        catch(error) { 
-            console.log(body);
+        catch(error) {
             callback(undefined);
         }
     });
@@ -38,7 +36,7 @@ function getDateFormat(date) {
     else month = month.toString();
     if(day < 10) day = "0" + day.toString();
     else day = day.toString();
-    return `MLSV_YMD=${date.getFullYear()}${month}${day}`;
+    return `MLSV_YMD=${date.getFullYear()}${month}`;
 }
 
 module.exports = function getLunch(date, callback) {
