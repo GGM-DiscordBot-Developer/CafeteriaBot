@@ -13,10 +13,12 @@ const client = new Client({
         Partials.Message
     ]});
 
+const dotenv = require("dotenv");
 const handlers = require('./handlers.js');
 const fs = require('fs');
 const { excelParser, readExcelFile } = require('./excelReader.js');
 let cnt = require('./count.json').cnt;
+dotenv.config();
 
 let logChannel;
 

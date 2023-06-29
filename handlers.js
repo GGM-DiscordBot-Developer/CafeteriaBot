@@ -3,7 +3,7 @@ const request = require("request");
 const { excelParser, readExcelFile } = require("./excelReader.js");
 const excelToJson = require("convert-excel-to-json");
 
-const getLunch = require('./getLunch.js');
+const { getLunch } = require('./getLunch.js');
 
 const enums = { "조식": 0, "간식": 1, "석식": 2 };
 
