@@ -15,9 +15,9 @@ function getLunchData(date, callback) {
     let result;
     req.get(url + key + type + localCode + schoolCode + getDateFormat(date), 
     (err, res, body) => {
-        console.log(url + key + type + localCode + schoolCode + getDateFormat(date));
         if(err) {
             console.log(err);
+            callback(undefined);
             return;
         };
         try{ callback(JSON.parse(body)); }
@@ -45,6 +45,7 @@ exports.getLunch = (date, callback) => {
         if(!result) {callback(undefined); return;}
         /** @type {string[]} */
         let arr = result.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>');
+        if(!result.mealServiceDietInfo) {callback(undefined); return;}
         for(let i = 0; i < arr.length; i++) {
             arr[i] = arr[i].replaceAll("★", "");
             arr[i] = arr[i].replaceAll("(", "");

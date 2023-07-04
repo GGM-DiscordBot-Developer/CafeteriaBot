@@ -9,7 +9,7 @@ const enums = { "조식": 0, "간식": 1, "석식": 2 };
 
 const days = require('./day.json');
 
-let currentFileMonth = 6;
+let currentFileMonth = 7;
 let 장흐응한식 = require('./result.json');
 
 
@@ -31,6 +31,12 @@ handlers["도움"] = {
      */
     handle(args, channel, msg) {
         channel.send({ embeds: [helpEmbed] });
+    }
+}
+
+handlers["공지"] = {
+    handle(args, channel, msg) {
+        // sendNotice(channel, args[1], args[2]);
     }
 }
 
@@ -86,7 +92,7 @@ handlers["점심"] = handlers["오늘"] = {
         }
 
         getLunch(date, (arr) => {
-            if (!arr) channel.send()
+            if (arr == undefined) {sendNoData(channel, date); return;};
             channel.send({
                 embeds: [
                     new EmbedBuilder()
@@ -214,6 +220,23 @@ function sendNoData(channel, date, dataInfo = "급식") {
                 .setColor('#00ff00')
         ]
     });
+}
+
+/**
+ * 
+ * @param {TextBasedChannel} channel 
+ * @param {string} title 
+ * @param {string} content 
+ */
+function sendNotice(channel, title, content) {
+    channel.send({
+        embeds: [
+            new EmbedBuilder({
+                title: title,
+                description: content
+            }).data
+        ]
+    })
 }
 
 module.exports = handlers;
