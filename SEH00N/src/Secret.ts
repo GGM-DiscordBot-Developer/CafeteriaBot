@@ -7,5 +7,3 @@ export const dbConfig:mysql.PoolOptions = {
     host: 'gondr99.iptime.org',
     port: 3306
 };
-
-export const JWT_SECRET = "ㅇㅓㅊㅏㅍㅣㅇㅣㄹㄷㅡㅇㅇㅡㄴㄱㅏㅇㅅㅏㄴ";
