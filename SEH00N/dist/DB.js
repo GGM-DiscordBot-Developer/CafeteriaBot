@@ -32,7 +32,7 @@ const GetMeal = function (date, type) {
         const sql = 'SELECT meal FROM meals where date = ? AND type = ?';
         const dateValue = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         let [row, col] = yield exports.Pool.query(sql, [dateValue, type]);
-        return row.length > 0 ? row[0]['meal'] : null;
+        return row.length > 0 ? JSON.parse(row[0]['meal']) : null;
     });
 };
 exports.GetMeal = GetMeal;

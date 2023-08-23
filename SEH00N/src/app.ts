@@ -5,8 +5,11 @@ import { RowDataPacket } from "mysql2/promise";
 
 const main = async function() {
     let date = new Date();
-    let data:RowDataPacket[]|null = await GetMeal(date, MealType.Dinner);
-    console.log(data);
+    let data:string[] = await GetMeal(date, MealType.Dinner);
+
+    data.forEach(meal => {
+        console.log(meal);        
+    });
 }
 
 main();

@@ -15,7 +15,9 @@ const main = function () {
     return __awaiter(this, void 0, void 0, function* () {
         let date = new Date();
         let data = yield (0, DB_1.GetMeal)(date, types_1.MealType.Dinner);
-        console.log(data);
+        data.forEach(meal => {
+            console.log(meal);
+        });
     });
 };
 main();
