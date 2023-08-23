@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateMeal = exports.Pool = void 0;
+exports.GetMeal = exports.UpdateMeal = exports.Pool = void 0;
 const Secret_1 = require("./Secret");
 const promise_1 = __importDefault(require("mysql2/promise"));
 exports.Pool = promise_1.default.createPool(Secret_1.dbConfig);
@@ -27,3 +27,12 @@ const UpdateMeal = function (startDate, date, type, meal) {
     });
 };
 exports.UpdateMeal = UpdateMeal;
+const GetMeal = function (date, type) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const sql = 'SELECT meal FROM meals where date = ? AND type = ?';
+        const dateValue = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        let [row, col] = yield exports.Pool.query(sql, [dateValue, type]);
+        return row.length > 0 ? row[0]['meal'] : null;
+    });
+};
+exports.GetMeal = GetMeal;

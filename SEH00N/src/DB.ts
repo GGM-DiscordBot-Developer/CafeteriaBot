@@ -1,5 +1,5 @@
 import { dbConfig } from "./Secret";
-import mysql from 'mysql2/promise';
+import mysql, { RowDataPacket } from 'mysql2/promise';
 import { MealType } from "./types";
 
 export const Pool = mysql.createPool(dbConfig);
@@ -13,3 +13,11 @@ export const UpdateMeal = async function(startDate:Date, date:string, type:MealT
 
     await Pool.execute(sql, [dateValue, type, mealValue, mealValue]);
 };
+
+export const GetMeal = async function(date:Date, type:MealType) {
+    const sql = 'SELECT meal FROM meals where date = ? AND type = ?';
+    const dateValue = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    let [row, col]:[RowDataPacket[], any] = await Pool.query(sql, [dateValue, type]);
+    
+    return row.length > 0 ? row[0]['meal'] : null;
+}
