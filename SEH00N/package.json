@@ -1,0 +1,20 @@
+{
+  "name": "seh00n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "arr2json.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "start": "node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/convert-excel-to-json": "^1.7.1",
+    "convert-excel-to-json": "^1.7.0",
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.6.0"
+  }
+}
