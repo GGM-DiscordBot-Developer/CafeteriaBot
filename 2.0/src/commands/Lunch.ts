@@ -4,8 +4,9 @@ import iconv from "iconv-lite";
 import axios from "axios";
 import { CheerioAPI, load } from "cheerio";
 import { EMBED_IMAGE, FOOTER_ICON } from "../Define";
+import {} from "../../../SEH00N/src/DB";
 
-const lunchEmbed: APIEmbed = {
+export const menuEmbed: APIEmbed = {
     title: ":fork_and_knife:   __**겜마고 급식 정보**__",
     image: {url: EMBED_IMAGE as string, },
     color: 0x00ff00,
@@ -35,7 +36,7 @@ export const lunch: Command = {
         if(!date) date = now.getDate();
 
         let lunchs: string[] = await getLunchTable(date);
-        let embed = {...lunchEmbed};
+        let embed = {...menuEmbed};
         embed.fields = [{
             name: `:spoon: ${now.getFullYear()}년 ${now.getMonth() + 1}월 ${date}일 급식`,
             value: lunchs.join("\n") + '\n\n"!급식 도움"을 입력하여 더 많은 명령어를 확인하세요.',
