@@ -1,6 +1,26 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const excelReader_1 = require("./excelReader");
-let date = new Date();
-date.setDate(13);
-(0, excelReader_1.parse)(date);
+const DB_1 = require("./DB");
+const types_1 = require("./types");
+const main = function () {
+    return __awaiter(this, void 0, void 0, function* () {
+        let date = new Date();
+        let data = yield (0, DB_1.GetMeal)(date, types_1.MealType.Dinner);
+        data.forEach(meal => {
+            console.log(meal);
+        });
+    });
+};
+main();
+// let date:Date = new Date();
+// date.setDate(13);
+// parse(date);
