@@ -1,4 +1,4 @@
 import { Command } from "./Command";
-import { lunch } from "./commands/Lunch";
+import { meal } from "./commands/Meal";
 
-export const commands: Command[] = [lunch];
+export const commands: Command[] = [meal];
