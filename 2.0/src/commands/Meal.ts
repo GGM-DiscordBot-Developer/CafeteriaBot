@@ -31,11 +31,11 @@ const mealTypeOption: ApplicationCommandOptionData = {
     description: "조회할 급식(기본값: 중식)",
     type: ApplicationCommandOptionType.Integer,
     choices: [
-        { name: "중식", value: MealType.Lunch as number },
-        { name: "조식", value: MealType.Breakfast as number },
-        { name: "석식", value: MealType.Dinner as number }
+        { name: "조식", value: 0 },
+        { name: "중식", value: 1 },
+        { name: "석식", value: 2 }
     ],
-    required: false
+    required: true
 }
 
 const options: ApplicationCommandOptionData[] = [mealTypeOption, dateOption];
@@ -48,10 +48,8 @@ export const meal: Command = {
     run: async (client: Client, interaction: CommandInteraction) => {
         let now = new Date();
         let date: number = interaction.options.get(dateOption.name, dateOption.required)?.value as number;
-        let mealType: MealType = interaction.options.get(mealTypeOption.name, mealTypeOption.required)?.value as MealType;
+        let mealType: MealType = interaction.options.get(mealTypeOption.name, mealTypeOption.required)?.value as number;
         if(!date) date = now.getDate();
-        console.log(mealType.toString());
-        if(!mealType) mealType = MealType.Lunch;
 
         now.setDate(date);
         let menus:string[] = await GetMeal(now, mealType);
@@ -73,7 +71,7 @@ export const meal: Command = {
         {
             // empty table
             embed.fields = [{
-                name: `:spoon: ${now.getFullYear()}년 ${now.getMonth() + 1}월 ${date}일 급식`,
+                name: `:spoon: ${now.getFullYear()}년 ${now.getMonth() + 1}월 ${date}일 ${getMealName(mealType)}`,
                 value: "급식 정보가 없습니다!" + '\n\n"!급식 도움"을 입력하여 더 많은 명령어를 확인하세요.',
             }]
             
@@ -135,4 +133,8 @@ function getDateFormat(date?: number){
 }
 
 function dateToClass(date: number) {
+}
+
+function getMealName(type: MealType): string {
+    return type == MealType.Breakfast ? "조식" : (type == MealType.Lunch ? "급식" : "석식");
 }
