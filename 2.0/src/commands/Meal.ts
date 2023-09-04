@@ -4,8 +4,8 @@ import iconv from "iconv-lite";
 import axios from "axios";
 import { CheerioAPI, load } from "cheerio";
 import { EMBED_IMAGE, FOOTER_ICON } from "../Define";
-import { GetMeal, UpdateMeal } from "../../../SEH00N/src/DB";
-import { MealType } from "../../../SEH00N/src/types";
+import { GetMeal, UpdateMeal } from "../DB";
+import { MealType } from "../types";
 
 export const menuEmbed: APIEmbed = {
     title: ":fork_and_knife:   __**겜마고 급식 정보**__",
